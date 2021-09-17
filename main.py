@@ -19,17 +19,18 @@ if class_time == "530":
 with open(class_file) as student_csv:
     student_csv_reader = csv.reader(student_csv)
     student_list = []
-    row_count = 0
+    # Skip header
+    next(student_csv_reader)
     for row in student_csv_reader:
-        if row_count > 0:
-            student_list.append(' '.join(row))
-        else:
-            row_count += 1
+        student_list.append(' '.join(row))
 
 while student_list:
     student = random.choice(student_list)
     os.system("say " + student)
     student_list.remove(student)
-    input("Press enter to continue...")
+    user_input = input("Press enter to continue (or 'q' to quit)...")
+    quitting_words = ['q', 'quit']
+    if user_input.lower() in quitting_words:
+        break
 
 os.system("say 'All done'")
